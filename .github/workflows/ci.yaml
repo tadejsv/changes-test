@@ -28,6 +28,7 @@ jobs:
               echo "Got a aux change!"
             fi
             echo "$dir was changed"
+            echo "***********************"
           done
 
 # If we have . or src or tests -> do base test
