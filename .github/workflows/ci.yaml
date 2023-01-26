@@ -28,7 +28,7 @@ jobs:
           for dir in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ $dir == "." || $dir == "main_dir" ]]; then
               echo "Got a main change!"
-              main_dir_change=true
+              # main_dir_change=true
             elif [[ $dir == "aux_dirs/"* ]]; then
               auxy_dirs+=( "$dir" )
               echo "Got a aux change!"
@@ -61,4 +61,4 @@ jobs:
     needs: changes
     if: needs.changes.outputs.main == 'true'
     steps:
-    - run: groovy
+    - run: echo groovy
