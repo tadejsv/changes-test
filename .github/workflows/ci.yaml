@@ -1,0 +1,66 @@
+name: CI
+on:
+  pull_request:
+
+jobs:
+  changes:
+    name: Get changes
+    runs-on: ubuntu-latest
+    outputs:
+      trix: ${{ steps.kek.outputs.kek }}
+      main: ${{ steps.kek.outputs.main }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v35
+        with:
+          dir_names: true
+
+      - name: List all changed dirs
+        id: kek
+        run: |
+          auxy_dirs=()
+          main_dir_change=false
+          for dir in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            if [[ $dir == "." || $dir == "main_dir" ]]; then
+              echo "Got a main change!"
+              # main_dir_change=true
+            elif [[ $dir == "aux_dirs/"* ]]; then
+              # auxy_dirs+=( "$dir" )
+              echo "Got a aux change!"
+            fi
+            echo "$dir was changed"
+            echo "***********************"
+          done
+
+          aux_dirs=$(jq --compact-output --null-input '$ARGS.positional' --args -- "${auxy_dirs[@]}")
+          echo "kek=$aux_dirs" >> $GITHUB_OUTPUT
+          echo "main=$main_dir_change" >> $GITHUB_OUTPUT
+
+
+# If we have . or src or tests -> do base test
+# if starts with flows/ -> add to flows array
+# if starts with o
+
+
+  # # Try alsoo JSON and things like that
+  test-run:
+    runs-on: ubuntu-latest
+    needs: changes
+    if: ${{ needs.changes.outputs.trix != '' && toJson(fromJson(needs.changes.outputs.trix)) != '[]' }}
+    strategy:
+      matrix: 
+        kk: ${{fromJson(needs.changes.outputs.trix)}}
+    steps:
+    - run: echo ${{ matrix.kk }}
+
+  main-test:
+    runs-on: ubuntu-latest
+    needs: changes
+    if: needs.changes.outputs.main == 'true'
+    steps:
+    - run: echo groovy
