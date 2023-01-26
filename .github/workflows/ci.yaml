@@ -33,7 +33,7 @@ jobs:
             echo "***********************"
           done
 
-          echo $aux_dirs
+          echo "All aux dirs changed: $aux_dirs"
 
 # If we have . or src or tests -> do base test
 # if starts with flows/ -> add to flows array
