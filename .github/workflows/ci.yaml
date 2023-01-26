@@ -51,6 +51,7 @@ jobs:
   test-run:
     runs-on: ubuntu-latest
     needs: changes
+    if: ${{ needs.changes.outputs.trix != '[]' }}
     strategy:
       matrix: ${{fromJson(needs.changes.outputs.trix)}}
     steps:
