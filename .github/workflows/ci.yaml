@@ -25,8 +25,8 @@ jobs:
           for dir in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ $dir == "." || $dir == "main_dir" ]]; then
               echo "Got a main change!"
-            elif [[ $dir == "aux_dirs/"*  ]]; then
-              aux_dirs+=($dir)
+            elif [[ $dir == "aux_dirs/"* ]]; then
+              aux_dirs+=( "$dir" )
               echo "Got a aux change!"
             fi
             echo "$dir was changed"
