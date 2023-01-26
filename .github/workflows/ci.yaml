@@ -21,19 +21,19 @@ jobs:
 
       - name: List all changed dirs
         run: |
-          aux_dirs=()
+          auxy_dirs=()
           for dir in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ $dir == "." || $dir == "main_dir" ]]; then
               echo "Got a main change!"
             elif [[ $dir == "aux_dirs/"* ]]; then
-              aux_dirs+=( "$dir" )
+              auxy_dirs+=( "$dir" )
               echo "Got a aux change!"
             fi
             echo "$dir was changed"
             echo "***********************"
           done
 
-          echo "All aux dirs changed: $aux_dirs"
+          echo "All aux dirs changed: ${auxy_dirs[*]}"
 
 # If we have . or src or tests -> do base test
 # if starts with flows/ -> add to flows array
