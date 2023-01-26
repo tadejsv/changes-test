@@ -14,7 +14,7 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v35
         with:
-          dir_name: true
+          dir_names: true
 
       - name: List all changed dirs
         run: |
