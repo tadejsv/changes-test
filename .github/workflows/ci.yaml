@@ -18,12 +18,23 @@ jobs:
         uses: tj-actions/changed-files@v35
         with:
           dir_names: true
-          json: true
 
       - name: List all changed dirs
         run: |
-          echo ${{ steps.changed-files.outputs.all_changed_files }}
+          for dir in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            if [[ $dir == "." || $dir == "main_dir" ]]; then
+              echo "Got a main change!"
+            elif [[ $dir == "aux_dirs/"*  ]]; then
+              echo "Got a aux change!"
+            fi
+            echo "$dir was changed"
+          done
+
+# If we have . or src or tests -> do base test
+# if starts with flows/ -> add to flows array
+# if starts with o
+
 
   # Try alsoo JSON and things like that
-  # test-run:
-  #   runs-on: ubuntu-latest
+  test-run:
+    runs-on: ubuntu-latest
