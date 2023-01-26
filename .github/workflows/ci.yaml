@@ -34,7 +34,7 @@ jobs:
           done
 
           echo "All aux dirs changed: ${auxy_dirs[*]}"
-          echo ${{ toJson(auxy_dirs) }}
+          echo ${{ toJson($auxy_dirs) }}
 
 # If we have . or src or tests -> do base test
 # if starts with flows/ -> add to flows array
