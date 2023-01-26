@@ -1,0 +1,23 @@
+name: CI
+on:
+  pull_request:
+
+jobs:
+  changes:
+    name: Get changes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v35
+        with:
+          dir_name: true
+
+      - name: List all changed dirs
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed"
+          done
